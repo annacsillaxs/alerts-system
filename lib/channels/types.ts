@@ -7,9 +7,18 @@ export interface AlertMessage {
 
 export type SendResult = { ok: true } | { ok: false; error: string };
 
+/** One input the rule form renders for this channel; its value lands in config[name]. */
+export interface ConfigField {
+  name: string;
+  label: string;
+  inputType: "email" | "url" | "text";
+  placeholder?: string;
+}
+
 export interface ChannelAdapter<TConfig> {
   readonly type: string;
   readonly label: string;
+  readonly configFields: ConfigField[];
   /** Used when a rule is created and again before each send. */
   validateConfig(raw: unknown): ConfigResult<TConfig>;
   send(message: AlertMessage, config: TConfig): Promise<SendResult>;

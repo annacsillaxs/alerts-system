@@ -20,6 +20,7 @@ function getTransport(): Transporter {
 export const emailAdapter: ChannelAdapter<EmailConfig> = {
   type: "email",
   label: "Email",
+  configFields: [{ name: "to", label: "Email address", inputType: "email", placeholder: "you@example.com" }],
 
   validateConfig(raw) {
     const to = typeof raw === "object" && raw !== null ? (raw as Record<string, unknown>).to : undefined;

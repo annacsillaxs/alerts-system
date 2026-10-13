@@ -53,3 +53,8 @@
   color: #c92a2a;
   font-weight: 600;
 }
+
+.main a {
+  color: #1c64d6;
+  text-decoration: underline;
+}

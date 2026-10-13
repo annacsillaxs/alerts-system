@@ -30,3 +30,12 @@
    The numbers reconcile. The earlier runs gave 72 sent. 6 deliveries were deleted with the 3 test events, and run 5 re-sent 1, so 72 − 6 + 1 = 67. That’s exactly what the page shows. The retry then took it to 68, and the injected M 6.5 matched exactly 3 rules (Alice email ≥ 4.5, Alice Slack ≥ 6, Bob email ≥ 2.5), which is correct.
 
    An empty magnitude field used to pass validation as 0, because Number("") is 0. It's now rejected. - validated, see screenshots/empty-magnituded-fixed.png
+
+7. User page - Slack adapter accepts any https URL
+
+- **Source:** Slack mock adapter validateConfig, prompt 06
+- **Problem:** `https://google.com` is accepted as a Slack webhook; only
+  the https:// prefix is checked, not the host
+- **How it was caught:** I tested the form with a non-Slack URL
+- **Action:** not fixed (Slack is mocked, nothing is sent). Before a real
+  Slack adapter: only allow https://hooks.slack.com/. Added to Known issues.

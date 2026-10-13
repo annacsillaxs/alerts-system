@@ -11,6 +11,14 @@ function mask(url: string): string {
 export const slackMockAdapter: ChannelAdapter<SlackConfig> = {
   type: "slack",
   label: "Slack (mock)",
+  configFields: [
+    {
+      name: "webhookUrl",
+      label: "Slack webhook URL",
+      inputType: "url",
+      placeholder: "https://hooks.slack.com/services/…",
+    },
+  ],
 
   validateConfig(raw) {
     const webhookUrl =

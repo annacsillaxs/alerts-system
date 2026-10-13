@@ -1,9 +1,10 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { describeChannelConfig } from "@/lib/channels/registry";
 import { db } from "@/lib/db";
-import { ActionForm } from "./action-form";
+import { ActionForm } from "@/app/action-form";
 import { injectSimulatedEventAction, retryDeliveryAction, runIngestionAction } from "./actions";
-import styles from "./admin.module.css";
+import styles from "@/app/ui.module.css";
 
 export const metadata = { title: "Admin · Alerts" };
 
@@ -11,6 +12,9 @@ export default function AdminPage() {
   return (
     <main className={styles.main}>
       <h1>Admin</h1>
+      <p>
+        <Link href="/">← User view</Link>
+      </p>
       <section className={styles.actions}>
         <ActionForm action={runIngestionAction} label="Run ingestion now" />
         <ActionForm action={injectSimulatedEventAction} label="Inject simulated event">
