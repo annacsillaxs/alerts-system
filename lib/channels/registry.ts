@@ -1,3 +1,4 @@
+import { parseJson } from "@/lib/validation";
 import { emailAdapter } from "./email";
 import { slackMockAdapter } from "./slack-mock";
 import type { ChannelAdapter } from "./types";
@@ -16,4 +17,12 @@ export function getChannel(type: string): ChannelAdapter<unknown> | undefined {
 
 export function listChannels(): ChannelAdapter<unknown>[] {
   return adapters;
+}
+
+/** Display text for a rule's destination, masked by the channel's adapter. */
+export function describeChannelConfig(type: string, rawConfig: string): string {
+  const adapter = getChannel(type);
+  if (!adapter) return `(unknown channel '${type}')`;
+  const config = adapter.validateConfig(parseJson(rawConfig));
+  return config.ok ? adapter.describeConfig(config.config) : "(invalid config)";
 }

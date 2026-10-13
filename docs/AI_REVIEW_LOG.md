@@ -25,3 +25,8 @@
 - **70 emails to Bob in one day.** That's alert flooding, which I deferred in #20.
 - Folder layout - scr/ was deleted from DESIGN.md
 - checked one of the delivered email alert's event and checked it against the source - verified - see screenshots folder
+
+6. Admin page
+   The numbers reconcile. The earlier runs gave 72 sent. 6 deliveries were deleted with the 3 test events, and run 5 re-sent 1, so 72 − 6 + 1 = 67. That’s exactly what the page shows. The retry then took it to 68, and the injected M 6.5 matched exactly 3 rules (Alice email ≥ 4.5, Alice Slack ≥ 6, Bob email ≥ 2.5), which is correct.
+
+   An empty magnitude field used to pass validation as 0, because Number("") is 0. It's now rejected. - validated, see screenshots/empty-magnituded-fixed.png

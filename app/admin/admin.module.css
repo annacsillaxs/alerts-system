@@ -1,0 +1,55 @@
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  font-family: system-ui, sans-serif;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 16px 0;
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.count {
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  min-width: 120px;
+}
+
+.countValue {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid #ddd;
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.sent {
+  color: #2b8a3e;
+}
+
+.failed {
+  color: #c92a2a;
+  font-weight: 600;
+}

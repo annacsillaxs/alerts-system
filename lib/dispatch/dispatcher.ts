@@ -2,6 +2,7 @@ import { Prisma, type Delivery, type Event, type Rule } from "@prisma/client";
 import { getChannel } from "@/lib/channels/registry";
 import { db } from "@/lib/db";
 import { describeError } from "@/lib/errors";
+import { getMetric } from "@/lib/metrics/registry";
 import type { MetricType } from "@/lib/metrics/types";
 import { parseJson } from "@/lib/validation";
 import { buildMessage } from "./message";
@@ -25,6 +26,19 @@ export async function createAndSend(
     throw e;
   }
   return send(delivery, event, rule, metric);
+}
+
+/** Manual retry: re-sends a failed Delivery on the same row. */
+export async function retryDelivery(deliveryId: string): Promise<SendOutcome> {
+  const delivery = await db.delivery.findUnique({
+    where: { id: deliveryId },
+    include: { event: { include: { category: true } }, rule: true },
+  });
+  if (!delivery) throw new Error("Delivery not found");
+  if (delivery.status !== "failed") throw new Error(`Only failed deliveries can be retried (status: ${delivery.status})`);
+  const metric = getMetric(delivery.event.category.metricType);
+  if (!metric) throw new Error(`Unknown metric type '${delivery.event.category.metricType}'`);
+  return send(delivery, delivery.event, delivery.rule, metric);
 }
 
 /** Sends one delivery and records the result. Also used for manual retry. */

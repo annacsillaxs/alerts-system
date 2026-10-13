@@ -11,7 +11,7 @@ export const magnitude: MetricType = {
   },
 
   validateThreshold(raw) {
-    const value = typeof raw === "string" ? Number(raw) : raw;
+    const value = typeof raw === "string" && raw.trim() !== "" ? Number(raw) : raw;
     if (typeof value !== "number" || !Number.isFinite(value)) {
       return { ok: false, errors: ["Threshold must be a number"] };
     }
