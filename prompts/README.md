@@ -15,4 +15,5 @@ holds the exact prompt, a summary of the output, and my verdict.
 
 ## Raw conversations
 
-- `raw/` — full exports of the VS Code sessions
+- [raw/vscode-session-1.md](raw/vscode-session-1.md): full VS Code session export
+- [planning-and-review-summary.md](planning-and-review-summary.md): summary of the separate planning/review chat
