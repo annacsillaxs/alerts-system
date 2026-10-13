@@ -5,3 +5,5 @@
 # 03-setup-app-and-db.md
 
 # 04-decide-on-rule-deletion.md
+
+# 05-pipeline.md

@@ -73,3 +73,8 @@ Scope cut (20:15): designed, but not built.
 51. Deferred per-user time zones (UTC everywhere), backfill of past events for new rules, and data-retention cleanup; all documented as future work.
 52. Chose a flat category list where each category is a disaster type (Earthquake, Storm, …) bound to a metric type in code; "Natural disasters" (#13) is a display grouping, not a data level. Refines #7/#9/#17. Trade-off: adding News/Markets later may need a grouping level.
 53. Chose "≥" as the only threshold comparison ("notify when metric ≥ X"). Trade-off: no "falls below" or range rules.
+54. Chose to ingest only USGS features with `type = earthquake`; explosions
+    and quarry blasts are filtered out, because they'd be false alerts for
+    an Earthquake category. Other types could map to their own categories
+    later. Trade-off: some real seismic events are ignored. Found by
+    inspecting the live feed (see AI_REVIEW_LOG).

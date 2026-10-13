@@ -10,3 +10,18 @@
    Ran 'npm run dev' - works
 
    Deleted src/ from the DESIGN.md §6 and moved app/ and lib/ to the top level.
+
+4. Design assumed every USGS feature is an earthquake
+
+- **Source:** DESIGN.md §5 (USGS source), prompt 02
+- **Problem:** the live feed also contains `explosion` and `quarry blast` events
+- **How it was caught:** I inspected a real feed response before the parser was written
+- **Action:** filter on `properties.type === "earthquake"`, count the
+  skipped ones in the ingestion summary; decision #54
+
+5. 05-pipeline
+
+- It sent POST requests to my other app on port 3000.
+- **70 emails to Bob in one day.** That's alert flooding, which I deferred in #20.
+- Folder layout - scr/ was deleted from DESIGN.md
+- checked one of the delivered email alert's event and checked it against the source - verified - see screenshots folder
