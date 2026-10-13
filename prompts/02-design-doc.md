@@ -1,4 +1,4 @@
-Prompt:
+## Prompt:
 
 Read docs/DECISIONS.md, especially the "Key decisions" and "Scope cut"
 sections at the top. Those are final; don't reopen them.
@@ -38,7 +38,7 @@ Rules:
   at the end rather than resolving them yourself.
 - No implementation code.
 
-Response:
+## Response:
 
 I've written [docs/DESIGN.md](docs/DESIGN.md) for the slice as cut back in the "Scope cut" section, and treated those decisions as final.
 

@@ -167,24 +167,25 @@ Two other actions use the same flow:
 prisma/
   schema.prisma
   seed.ts                    # users (one admin), Earthquake category, sample rules
-src/
-  app/
-    page.tsx                 # user: switcher, my rules, create/delete (#14, #49)
-    admin/page.tsx           # read-only tables + actions
-    admin/actions.ts         # runIngestion, injectSimulatedEvent, retryDelivery
-  lib/
-    db.ts
-    current-user.ts          # seeded-user switcher (no auth)
-    ingestion/run.ts         # steps 1–9
-    ingestion/sources/usgs.ts
-    ingestion/sources/simulated.ts
-    metrics/types.ts  metrics/registry.ts  metrics/magnitude.ts
-    matching/matcher.ts
-    channels/types.ts  channels/registry.ts  channels/email.ts  channels/slack-mock.ts
-    dispatch/dispatcher.ts   # steps 7–8, also used by retry
-    dispatch/message.ts
+app/
+  page.tsx                 # user: switcher, my rules, create/delete (#14,#49)
+  admin/page.tsx           # read-only tables + actions
+  admin/actions.ts         # runIngestion, injectSimulatedEvent,retryDelivery
+lib/
+  db.ts
+  current-user.ts          # seeded-user switcher (no auth)
+  ingestion/run.ts         # steps 1–9
+  ingestion/sources/usgs.ts
+  ingestion/sources/simulated.ts
+  metrics/types.ts  metrics/registry.ts  metrics/magnitude.ts
+  matching/matcher.ts
+  channels/types.ts  channels/registry.ts  channels/email.ts  channelsslack-mock.ts
+  dispatch/dispatcher.ts   # steps 7–8, also used by retry
+  dispatch/message.ts
 docs/
 ```
+
+Updated after setup: the scaffold uses no src/ folder.
 
 ## Designed but not built (scope cut)
 

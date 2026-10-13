@@ -1,0 +1,73 @@
+// Data model: see docs/DESIGN.md §2.
+// Enums and Json are stored as String to keep SQLite simple.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String @id @default(cuid())
+  name  String
+  email String @unique
+  role  String @default("user") // "user" | "admin"
+  rules Rule[]
+}
+
+model Category {
+  id         String  @id @default(cuid())
+  key        String  @unique // e.g. "earthquake"
+  name       String
+  metricType String // key into the metric registry, e.g. "magnitude"
+  rules      Rule[]
+  events     Event[]
+}
+
+model Rule {
+  id            String     @id @default(cuid())
+  userId        String
+  user          User       @relation(fields: [userId], references: [id])
+  categoryId    String
+  category      Category   @relation(fields: [categoryId], references: [id])
+  threshold     Float // matches when metric >= threshold
+  channelType   String // key into the channel registry, e.g. "email" | "slack"
+  channelConfig String // JSON, validated by the channel adapter
+  createdAt     DateTime   @default(now())
+  deliveries    Delivery[]
+}
+
+model Event {
+  id         String     @id @default(cuid())
+  source     String // "usgs" | "simulated"
+  externalId String
+  categoryId String
+  category   Category   @relation(fields: [categoryId], references: [id])
+  title      String
+  occurredAt DateTime
+  sourceUrl  String? // null for simulated events
+  metrics    String // JSON, e.g. {"magnitude":5.4}
+  createdAt  DateTime   @default(now())
+  deliveries Delivery[]
+
+  @@unique([source, externalId])
+}
+
+model Delivery {
+  id        String    @id @default(cuid())
+  eventId   String
+  event     Event     @relation(fields: [eventId], references: [id])
+  ruleId    String
+  rule      Rule      @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  status    String    @default("pending") // "pending" | "sent" | "failed"
+  attempts  Int       @default(0)
+  lastError String?
+  sentAt    DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([eventId, ruleId])
+}
